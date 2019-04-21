@@ -1,6 +1,7 @@
 package com.user.wechat.service.service;
 
-import com.user.wechat.service.model.UserDO;
+import com.user.wechat.api.dto.UserDTO;
+import com.user.wechat.api.request.UserRequest;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<UserDO> findAll();
+    List<UserDTO> findAll();
+
+    UserDTO getUserByNameAndPwd(UserRequest userRequest);
 
 }

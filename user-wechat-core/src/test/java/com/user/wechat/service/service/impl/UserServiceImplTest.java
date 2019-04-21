@@ -1,5 +1,7 @@
 package com.user.wechat.service.service.impl;
 
+import com.user.wechat.api.dto.UserDTO;
+import com.user.wechat.api.request.UserRequest;
 import com.user.wechat.service.MainApplication;
 import com.user.wechat.service.model.UserDO;
 import com.user.wechat.service.service.UserService;
@@ -26,8 +28,17 @@ public class UserServiceImplTest {
 
     @Test
     public void findAll() {
-        List<UserDO> userDOList = userService.findAll();
-        assert userDOList != null;
+        List<UserDTO> userDTOS = userService.findAll();
+        assert userDTOS != null;
 
+    }
+
+    @Test
+    public void getUser() {
+        UserRequest userRequest = new UserRequest();
+        userRequest.setUserName("admin");
+        userRequest.setPassword("admin");
+        UserDTO userDTO = userService.getUserByNameAndPwd(userRequest);
+        System.out.println(userDTO);
     }
 }

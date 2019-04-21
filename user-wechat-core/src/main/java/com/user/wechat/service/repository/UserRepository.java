@@ -8,4 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2019-04-12
  */
 public interface UserRepository extends JpaRepository<UserDO, String> {
+
+    /**
+     * 根据用户名和密码查找用户
+     * @param userName
+     * @param password
+     * @return
+     */
+    UserDO findUserDOByUserNameAndPassword(String userName, String password);
+
 }

@@ -9,8 +9,8 @@ import lombok.Getter;
 @Getter
 public enum ResponseCode implements CodeEnum {
 
-    SUCCESS(6000, "成功"),
-    FAIL(6001, "失败")
+    SUCCESS(6000, "请求成功"),
+    FAIL(6001, "登录失败，用户名或密码错误")
     ;
 
     private Integer code;
