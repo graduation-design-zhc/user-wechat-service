@@ -17,7 +17,7 @@ import java.util.Date;
 public class UserDO {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Column(name = "uid")
     private String uid;

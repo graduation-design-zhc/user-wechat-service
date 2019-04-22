@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import java.util.List;
 
@@ -38,6 +39,12 @@ public class UserRepositoryTest {
     public void findMember() {
         List<MemberDO> list = memberRepository.findAll();
         assert list.size() > 0;
+    }
+
+    @Test
+    public void deleteMember() {
+        int i = memberRepository.deleteByMemberId("254201fc27cd4a04b6bbae18643c027d");
+        System.out.println(i);
     }
 
 }

@@ -18,7 +18,8 @@ public class MemberDTOConvert {
         memberDTO.setGender(memberDO.getGender());
         memberDTO.setAvatar(memberDO.getAvatar());
         memberDTO.setPhone(memberDO.getPhone());
-        memberDTO.setNickName(memberDTO.getNickName());
+        memberDTO.setNickName(memberDO.getNickName());
+        memberDTO.setBirthday(new SimpleDateFormat("yyyy-MM-dd").format(memberDO.getBirthday()));
         memberDTO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getCreateTime()));
         memberDTO.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getUpdateTime()));
         return memberDTO;

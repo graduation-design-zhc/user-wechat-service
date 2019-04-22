@@ -12,4 +12,8 @@ public interface MemberService {
 
     List<MemberDTO> findAll();
 
+    Boolean deleteMemberByMemberId(String memberId);
+
+    MemberDTO save(MemberDTO memberDTO);
+
 }
