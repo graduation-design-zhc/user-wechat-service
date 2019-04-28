@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @author zhanghuachang
@@ -17,5 +18,12 @@ public interface MemberRepository extends JpaRepository<MemberDO, String> {
     @Transactional(rollbackOn = Exception.class)
     @Query(value = "delete from MemberDO where member_id = ?1")
     int deleteByMemberId(String memberId);
+
+
+    List<MemberDO> findAllByOrderByCreateTimeDesc();
+
+    MemberDO findByMemberId(String memberId);
+
+    MemberDO findByOpenId(String openId);
 
 }

@@ -1,4 +1,4 @@
-package com.user.wechat.api.dto;
+package com.user.wechat.api.request;
 
 import lombok.Data;
 
@@ -6,12 +6,12 @@ import java.io.Serializable;
 
 /**
  * @author zhanghuachang
- * @date 2019-04-21
+ * @date 2019-04-23
  */
 @Data
-public class MemberDTO implements Serializable {
+public class MemberRequest implements Serializable {
 
-    private static final long serialVersionUID = -5666322459926440640L;
+    private static final long serialVersionUID = 8888708477963306518L;
     private String memberId;
     private String openId;
     private String avatar;
@@ -19,7 +19,5 @@ public class MemberDTO implements Serializable {
     private String phone;
     private String nickname;
     private String birthday;
-    private String createTime;
-    private String updateTime;
 
 }

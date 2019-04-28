@@ -47,4 +47,16 @@ public class UserRepositoryTest {
         System.out.println(i);
     }
 
+    @Test
+    public void findAllMemberCreateTime() {
+        List<MemberDO> list = memberRepository.findAllByOrderByCreateTimeDesc();
+        assert  list.size() > 0;
+    }
+
+    @Test
+    public void findByOpenId() {
+        MemberDO memberDO = memberRepository.findByOpenId("adfniuebfKJFHDFB");
+        assert memberDO != null;
+    }
+
 }

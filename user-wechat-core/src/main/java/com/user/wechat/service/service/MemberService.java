@@ -1,6 +1,7 @@
 package com.user.wechat.service.service;
 
 import com.user.wechat.api.dto.MemberDTO;
+import com.user.wechat.api.request.MemberRequest;
 
 import java.util.List;
 
@@ -14,6 +15,10 @@ public interface MemberService {
 
     Boolean deleteMemberByMemberId(String memberId);
 
-    MemberDTO save(MemberDTO memberDTO);
+    MemberDTO save(MemberRequest memberRequest);
+
+    MemberDTO updateMember(MemberRequest memberRequest);
+
+    MemberDTO findMemberByOpenId(String openId);
 
 }

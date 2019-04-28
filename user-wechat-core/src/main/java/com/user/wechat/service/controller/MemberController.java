@@ -1,6 +1,6 @@
 package com.user.wechat.service.controller;
 
-import com.user.wechat.api.dto.MemberDTO;
+import com.user.wechat.api.request.MemberRequest;
 import com.user.wechat.api.response.Response;
 import com.user.wechat.service.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,18 @@ public class MemberController {
     }
 
     @PostMapping("/member/save")
-    public Response saveMember(@RequestBody MemberDTO memberDTO) {
-        return Response.success(memberService.save(memberDTO));
+    public Response saveMember(@RequestBody MemberRequest memberRequest) {
+        return Response.success(memberService.save(memberRequest));
+    }
+
+    @PostMapping("member/update")
+    public Response updateMember(@RequestBody MemberRequest memberRequest) {
+        return Response.success(memberService.updateMember(memberRequest));
+    }
+
+    @PostMapping("member/getMember")
+    public Response getMemberByOpenId(@RequestParam("openId") String openId) {
+        return Response.success(memberService.findMemberByOpenId(openId));
     }
 
 }

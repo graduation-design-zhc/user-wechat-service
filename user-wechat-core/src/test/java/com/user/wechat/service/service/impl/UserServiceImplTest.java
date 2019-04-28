@@ -2,6 +2,7 @@ package com.user.wechat.service.service.impl;
 
 import com.user.wechat.api.dto.MemberDTO;
 import com.user.wechat.api.dto.UserDTO;
+import com.user.wechat.api.request.MemberRequest;
 import com.user.wechat.api.request.UserRequest;
 import com.user.wechat.service.MainApplication;
 import com.user.wechat.service.model.UserDO;
@@ -51,12 +52,21 @@ public class UserServiceImplTest {
     public void saveMember() {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setBirthday("1997-03-02");
-        memberDTO.setNickName("hahah");
+        memberDTO.setNickname("hahah");
         memberDTO.setPhone("13277427784");
         memberDTO.setGender(2);
         memberDTO.setOpenId("adfafadfafadfsafdsafasf");
         memberDTO.setAvatar("/upload/a.jpg");
-        MemberDTO save = memberService.save(memberDTO);
-        assert save != null;
+//        MemberDTO save = memberService.save(memberDTO);
+//        assert save != null;
+    }
+
+    @Test
+    public void updateMemner() {
+        MemberRequest memberRequest = new MemberRequest();
+        memberRequest.setMemberId("081db41f76a44249aa32aa5e49e7f4d6");
+        memberRequest.setGender(1);
+        MemberDTO aBoolean = memberService.updateMember(memberRequest);
+        System.out.println(aBoolean);
     }
 }

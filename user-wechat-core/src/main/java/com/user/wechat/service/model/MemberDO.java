@@ -1,6 +1,9 @@
 package com.user.wechat.service.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -10,7 +13,9 @@ import java.util.Date;
  * @author zhanghuachang
  * @date 2019-04-21
  */
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @DynamicUpdate
 @Table(name = "t_member")
@@ -26,11 +31,11 @@ public class MemberDO {
     @Column(name = "avatar")
     private String avatar;
     @Column(name = "gender")
-    private int gender;
+    private Integer gender;
     @Column(name = "phone")
     private String phone;
     @Column(name = "nick_name")
-    private String nickName;
+    private String nickname;
     @Column(name = "birthday")
     private Date birthday;
     @Column(name = "create_time")
