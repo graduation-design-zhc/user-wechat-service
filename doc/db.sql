@@ -72,6 +72,7 @@ create table `order`
   buyer_name varchar(32) not null comment '买家名字',
   buyer_phone varchar(32) not null comment '买家电话',
   buyer_openid varchar(64) not null comment '买家微信openid',
+  pay_type tinyint(3) not null DEFAULT 1 COMMENT '支付方式,0会员卡支付，1 现金支付',
   order_price decimal(8,2) not null default 0.0 comment '订单总价',
   order_integral double not null default 0 comment '订单积分',
   create_time timestamp not null default current_timestamp comment '创建时间',
@@ -100,3 +101,18 @@ create table `t_member_card` (
   KEY `IDX_UPDATE_TIME` (`update_time`) using BTREE
 ) ENGINE = InnoDB
   DEFAULT charset = utf8 comment '会员卡';
+
+create table `t_member_card_log` (
+  id bigint unsigned not null auto_increment comment '主键ID',
+  member_card_id char (32) not null default '' comment '会员卡id',
+  member_id   char (32) not null default '' comment '会员id',
+  add_balance decimal(8,2) not null default 0.0 comment '充值金额',
+  operator varchar(32) not null default '' comment '操作人',
+  create_time timestamp not null default current_timestamp comment '创建时间',
+  update_time timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
+  primary key (`id`),
+  key `IDX_MEMBER_ID`(`member_id`) using BTREE,
+  KEY `IDX_CREATE_TIME` (`create_time`) using BTREE,
+  KEY `IDX_UPDATE_TIME` (`update_time`) using BTREE
+) ENGINE = InnoDB
+  DEFAULT charset = utf8 comment '会员卡充值记录';

@@ -1,6 +1,7 @@
 package com.user.wechat.service.repository;
 
 import com.user.wechat.service.MainApplication;
+import com.user.wechat.service.model.MemberCardDO;
 import com.user.wechat.service.model.MemberDO;
 import com.user.wechat.service.model.UserDO;
 import org.junit.Test;
@@ -9,11 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import java.util.UUID;
 
 /**
  * @author zhanghuachang
@@ -28,6 +29,9 @@ public class UserRepositoryTest {
 
     @Resource
     private MemberRepository memberRepository;
+
+    @Resource
+    private MemberCardRepository memberCardRepository;
 
     @Test
     public void findUserDOByUserNameAndPassword() {
@@ -57,6 +61,32 @@ public class UserRepositoryTest {
     public void findByOpenId() {
         MemberDO memberDO = memberRepository.findByOpenId("adfniuebfKJFHDFB");
         assert memberDO != null;
+    }
+
+    @Test
+    public void saveMemberCard() {
+        MemberCardDO memberCardDO = new MemberCardDO();
+        memberCardDO.setMemberCardId(UUID.randomUUID().toString().replace("-", ""));
+        memberCardDO.setMemberId("9e5c9e6b347e4f4c81a37c714cdd807e");
+        memberCardDO.setMemberBalance(new BigDecimal(0.0));
+        memberCardDO.setMemberIntegral(0.0);
+        MemberCardDO save = memberCardRepository.save(memberCardDO);
+        assert save != null;
+    }
+
+    @Test
+    public void findCardByIds() {
+        List<String> memberIds = new ArrayList<>();
+        memberIds.add("9e5c9e6b347e4f4c81a37c714cdd807e");
+        List<MemberCardDO> memberCardDOS = memberCardRepository.findAllByMemberIdIsIn(memberIds);
+        System.out.println(memberCardDOS);
+
+    }
+
+    @Test
+    public void addBalance() {
+        int i = memberCardRepository.addBalance("9e5c9e6b347e4f4c81a37c714cdd807e", new BigDecimal(1));
+        System.out.println(i);
     }
 
 }

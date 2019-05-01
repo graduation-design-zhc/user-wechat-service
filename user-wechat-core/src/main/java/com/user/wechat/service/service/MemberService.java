@@ -21,4 +21,8 @@ public interface MemberService {
 
     MemberDTO findMemberByOpenId(String openId);
 
+    MemberDTO findMemberByMemberId(String memberId);
+
+    List<MemberDTO> findAllByMemberIds(List<String> memberIds);
+
 }

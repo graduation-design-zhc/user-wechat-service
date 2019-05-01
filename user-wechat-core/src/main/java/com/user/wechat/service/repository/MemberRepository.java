@@ -19,11 +19,12 @@ public interface MemberRepository extends JpaRepository<MemberDO, String> {
     @Query(value = "delete from MemberDO where member_id = ?1")
     int deleteByMemberId(String memberId);
 
-
     List<MemberDO> findAllByOrderByCreateTimeDesc();
 
     MemberDO findByMemberId(String memberId);
 
     MemberDO findByOpenId(String openId);
+
+    List<MemberDO> findAllByMemberIdIsIn(List<String> memberIds);
 
 }

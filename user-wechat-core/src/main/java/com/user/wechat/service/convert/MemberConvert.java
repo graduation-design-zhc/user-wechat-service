@@ -4,6 +4,7 @@ import com.user.wechat.api.dto.MemberDTO;
 import com.user.wechat.api.request.MemberRequest;
 import com.user.wechat.service.model.MemberDO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
@@ -27,7 +28,9 @@ public class MemberConvert {
         }
         memberDTO.setNickname(memberDO.getNickname());
         memberDTO.setBirthday(new SimpleDateFormat("yyyy-MM-dd").format(memberDO.getBirthday()));
-        memberDTO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getCreateTime()));
+        if (!ObjectUtils.isEmpty(memberDO.getCreateTime())) {
+            memberDTO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getCreateTime()));
+        }
         memberDTO.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getUpdateTime()));
         return memberDTO;
     }

@@ -7,6 +7,7 @@ package com.user.wechat.service.enums;
 public enum  ExceptionEnums {
 
     MEMBER_NOT_EXIT(6010, "会员不存在"),
+    MEMBER_CARD_NOT_EXIT(6010, "会员卡不存在"),
     MEMBER_IS_EXIT(6020, "会员已绑定"),
     ;
 
