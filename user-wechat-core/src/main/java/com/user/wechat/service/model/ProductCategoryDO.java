@@ -10,36 +10,29 @@ import java.util.Date;
 
 /**
  * @author zhanghuachang
- * @date 2019-04-21
+ * @date 2019-05-08
  */
 @Getter
 @Setter
 @ToString
 @Entity
 @DynamicUpdate
-@Table(name = "t_member")
-public class MemberDO {
+@Table(name = "product_category")
+public class ProductCategoryDO {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "member_id")
-    private String memberId;
-    @Column(name = "open_id")
-    private String openId;
-    @Column(name = "avatar")
-    private String avatar;
-    @Column(name = "gender")
-    private Integer gender;
-    @Column(name = "phone")
-    private String phone;
-    @Column(name = "nickname")
-    private String nickname;
-    @Column(name = "birthday")
-    private Date birthday;
+    @Column(name = "category_id")
+    private String categoryId;
+    @Column(name = "category_name")
+    private String categoryName;
+    @Column(name = "category_type")
+    private String categoryType;
     @Column(name = "create_time")
     private Date createTime;
     @Column(name = "update_time")
     private Date updateTime;
+
 
 }

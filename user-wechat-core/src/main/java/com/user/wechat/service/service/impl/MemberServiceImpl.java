@@ -1,6 +1,5 @@
 package com.user.wechat.service.service.impl;
 
-import com.user.wechat.api.dto.MemberCardDTO;
 import com.user.wechat.api.dto.MemberDTO;
 import com.user.wechat.api.request.MemberRequest;
 import com.user.wechat.service.convert.MemberConvert;

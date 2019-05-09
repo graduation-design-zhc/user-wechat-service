@@ -31,7 +31,9 @@ public class MemberConvert {
         if (!ObjectUtils.isEmpty(memberDO.getCreateTime())) {
             memberDTO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getCreateTime()));
         }
-        memberDTO.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getUpdateTime()));
+        if (!ObjectUtils.isEmpty(memberDO.getUpdateTime())) {
+            memberDTO.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(memberDO.getUpdateTime()));
+        }
         return memberDTO;
     }
 
