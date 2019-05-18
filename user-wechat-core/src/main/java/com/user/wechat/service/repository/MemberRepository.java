@@ -27,4 +27,6 @@ public interface MemberRepository extends JpaRepository<MemberDO, String> {
 
     List<MemberDO> findAllByMemberIdIsIn(List<String> memberIds);
 
+    MemberDO findByPhone(String phone);
+
 }

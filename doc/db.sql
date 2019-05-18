@@ -21,7 +21,7 @@ create table `t_member`
   avatar varchar (612) not null default  '' comment '头像',
   gender tinyint not null default 1 comment '性别',
   phone varchar (11) not null default '' comment '电话',
-  nick_name varchar (50) not null default '' comment '昵称',
+  nickname varchar(255) character set utf8mb4 collate utf8mb4_unicode_ci not null default '' COMMENT '昵称',
   birthday date not null default '2002-01-01',
   create_time  timestamp default current_timestamp comment '创建时间',
   update_time  timestamp default current_timestamp on update current_timestamp comment '更新时间',
@@ -59,16 +59,16 @@ create table `product_info` (
     create_time timestamp not null default current_timestamp comment '创建时间',
     update_time timestamp not null default current_timestamp on update current_timestamp comment '更新时间',
     primary key (`id`),
-    key `IDX_PRODUCT_ID`(`product_id`) using BTREE
+    key `IDX_PRODUCT_ID`(`product_id`) using BTREE,
+    key `IDX_CATEGORY_TYPE` (`category_type`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT charset = utf8 comment '商品信息表';
 
-create table `order`
+create table `t_order`
 (
   id bigint unsigned not null auto_increment comment '主键ID',
   order_id varchar(32) not null default '' comment '订单id',
   member_id   char (32) not null default '' comment '会员id',
-  product_ids varchar (512) not null default '' comment '商品id列表',
   buyer_name varchar(32) not null comment '买家名字',
   buyer_phone varchar(32) not null comment '买家电话',
   buyer_openid varchar(64) not null comment '买家微信openid',
@@ -86,6 +86,23 @@ create table `order`
   KEY `IDX_UPDATE_TIME` (`update_time`) using BTREE
 ) ENGINE = InnoDB
   DEFAULT charset = utf8 comment '订单表';
+
+create table `t_order_detail`
+(
+  id bigint unsigned not null auto_increment comment '主键ID',
+  order_id varchar(32) not null default '' comment '订单id',
+  product_id char (32) not null default '' comment '商品id',
+  product_name varchar(64) not null default '' comment '商品名称',
+  product_price decimal(8,2) not null default 0.0 comment '单价',
+  product_count int not null default 0 comment '商品数量',
+  create_time timestamp not null default current_timestamp comment '创建时间',
+  update_time timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
+  primary key (`id`),
+  key `IDX_ORDER_ID`(`order_id`) using BTREE,
+  KEY `IDX_CREATE_TIME` (`create_time`) using BTREE,
+  KEY `IDX_UPDATE_TIME` (`update_time`) using BTREE
+) ENGINE = InnoDB
+  DEFAULT charset = utf8 comment '订单商品详情表';
 
 create table `t_member_card` (
   id bigint unsigned not null auto_increment comment '主键ID',

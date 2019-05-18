@@ -24,4 +24,9 @@ public interface MemberCardRepository extends JpaRepository<MemberCardDO, String
     @Query(value = "update MemberCardDO set member_balance = member_balance + ?2 where member_id = ?1")
     int addBalance(String memberId, BigDecimal memberBalance);
 
+    @Modifying
+    @Transactional(rollbackOn = Exception.class)
+    @Query(value = "update MemberCardDO set member_balance = member_balance - ?2, member_integral = member_integral + ?3 where member_id = ?1")
+    int updateBalanceAndIntegral(String memberId, BigDecimal memberBalance, Double integral);
+
 }

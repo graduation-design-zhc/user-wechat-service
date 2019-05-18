@@ -28,7 +28,7 @@ public class ProductCategoryDO {
     @Column(name = "category_name")
     private String categoryName;
     @Column(name = "category_type")
-    private String categoryType;
+    private Integer categoryType;
     @Column(name = "create_time")
     private Date createTime;
     @Column(name = "update_time")

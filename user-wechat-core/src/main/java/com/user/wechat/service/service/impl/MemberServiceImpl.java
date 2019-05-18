@@ -147,4 +147,13 @@ public class MemberServiceImpl implements MemberService {
                 .map(MemberConvert::convert)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public MemberDTO findMemberByPhone(String phone) {
+        MemberDO memberDO = memberRepository.findByPhone(phone);
+        if (ObjectUtils.isEmpty(memberDO)) {
+            throw new BaseException(ExceptionEnums.MEMBER_NOT_EXIT);
+        }
+        return MemberConvert.convert(memberDO);
+    }
 }

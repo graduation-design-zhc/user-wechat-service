@@ -25,4 +25,6 @@ public interface MemberService {
 
     List<MemberDTO> findAllByMemberIds(List<String> memberIds);
 
+    MemberDTO findMemberByPhone(String phone);
+
 }

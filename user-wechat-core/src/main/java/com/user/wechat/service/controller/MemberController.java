@@ -56,4 +56,9 @@ public class MemberController {
         return Response.success(memberService.findAllByMemberIds(memberIds));
     }
 
+    @PostMapping("member/getMemberByPhone")
+    public Response getMemberByPhone(@RequestParam("phone") String phone) {
+        return Response.success(memberService.findMemberByPhone(phone));
+    }
+
 }

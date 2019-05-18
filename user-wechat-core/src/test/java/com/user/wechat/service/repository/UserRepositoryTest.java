@@ -1,9 +1,8 @@
 package com.user.wechat.service.repository;
 
+import com.user.wechat.api.request.OrderRequest;
 import com.user.wechat.service.MainApplication;
-import com.user.wechat.service.model.MemberCardDO;
-import com.user.wechat.service.model.MemberDO;
-import com.user.wechat.service.model.UserDO;
+import com.user.wechat.service.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +12,7 @@ import javax.annotation.Resource;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +32,15 @@ public class UserRepositoryTest {
 
     @Resource
     private MemberCardRepository memberCardRepository;
+
+    @Resource
+    private ProductCategoryRepository productCategoryRepository;
+
+    @Resource
+    private ProductRepository productRepository;
+
+    @Resource
+    private OrderRepository orderRepository;
 
     @Test
     public void findUserDOByUserNameAndPassword() {
@@ -87,6 +96,34 @@ public class UserRepositoryTest {
     public void addBalance() {
         int i = memberCardRepository.addBalance("9e5c9e6b347e4f4c81a37c714cdd807e", new BigDecimal(1));
         System.out.println(i);
+    }
+
+    @Test
+    public void getProductCategoryList() {
+        List<ProductCategoryDO> productCategoryDOList = productCategoryRepository.findAll();
+        assert productCategoryDOList != null;
+    }
+
+    @Test
+    public void getProductByCategoryType() {
+        List<ProductDO> productDOList = productRepository.findAllByCategoryType(10001);
+        System.out.println(productDOList);
+    }
+
+    @Test
+    public void insertOrder() {
+        OrderDO orderDO = new OrderDO();
+        orderDO.setOrderId("57b6cb43a73d43dea41f61f8517ec2cf");
+        orderDO.setMemberId("c4528a9fc1304adca9f290c60b1fbb52");
+        orderDO.setBuyerName("Z");
+        orderDO.setOperator("admin");
+        orderDO.setPayType(0);
+        orderDO.setBuyerPhone("13277426684");
+        orderDO.setBuyerOpenId("owCls1AVyvUTHqHB7eCBH2-F1y1w");
+        orderDO.setOrderPrice(new BigDecimal(0));
+        orderDO.setOrderIntegral(0.0);
+        OrderDO save = orderRepository.save(orderDO);
+        System.out.println(save);
     }
 
 }
