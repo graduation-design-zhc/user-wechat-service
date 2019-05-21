@@ -126,4 +126,10 @@ public class UserRepositoryTest {
         System.out.println(save);
     }
 
+    @Test
+    public void getOrderLogList() {
+        List<OrderDO> orderDOS = orderRepository.findOrderDOSByBuyerPhoneOrderByCreateTimeDesc("13277426684");
+        System.out.println(orderDOS);
+    }
+
 }

@@ -13,4 +13,6 @@ public interface MemberCardLogService {
 
     List<MemberCardLogDTO> findAll();
 
+    List<MemberCardLogDTO> getLogByPhone(String phone);
+
 }

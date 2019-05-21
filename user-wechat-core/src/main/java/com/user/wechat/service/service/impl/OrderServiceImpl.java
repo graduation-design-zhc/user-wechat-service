@@ -2,8 +2,11 @@ package com.user.wechat.service.service.impl;
 
 import com.user.wechat.api.dto.OrderDTO;
 import com.user.wechat.api.dto.OrderDetailDTO;
+import com.user.wechat.api.dto.OrderLogDTO;
 import com.user.wechat.api.request.OrderDetailRequest;
 import com.user.wechat.api.request.OrderRequest;
+import com.user.wechat.service.convert.OrderConvert;
+import com.user.wechat.service.convert.OrderLogConvert;
 import com.user.wechat.service.enums.ExceptionEnums;
 import com.user.wechat.service.enums.PayEnums;
 import com.user.wechat.service.exception.BaseException;
@@ -50,18 +53,47 @@ public class OrderServiceImpl implements OrderService {
         OrderDO orderDO = buildOrder(orderRequest);
         // 2 订单详情入库
         buildOrderDetail(orderDO.getOrderId(), orderRequest);
-        OrderDTO orderDTO = new OrderDTO();
-        BeanUtils.copyProperties(orderDO, orderDTO);
-        orderDTO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(orderDO.getCreateTime()));
-        List<OrderDetailDTO> orderDetailDTOList = new ArrayList<>();
-        orderRequest.getOrderDetailRequests().forEach(e -> {
-            OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
-            orderDetailDTO.setProductName(e.getProductName());
-            orderDetailDTO.setProductCount(e.getProductCount());
-            orderDetailDTOList.add(orderDetailDTO);
-        });
-        orderDTO.setOrderDetailDTOList(orderDetailDTOList);
+        //返回数据封装
+        OrderDTO orderDTO = OrderConvert.convert(orderDO);
+        List<OrderDetailDO> orderDetailDOS = orderDetailRepository.findAllByOrderId(orderDO.getOrderId());
+        List<OrderDetailDTO> orderDetailDTOS = orderDetailDOS
+                .stream()
+                .map(OrderConvert::convert)
+                .collect(Collectors.toList());
+        orderDTO.setOrderDetailDTOList(orderDetailDTOS);
         return orderDTO;
+    }
+
+    @Override
+    public List<OrderLogDTO> orderLogList() {
+        List<OrderDO> orderDOS = orderRepository.findAllByOrderByCreateTimeDesc();
+        return buildOrderLogList(orderDOS);
+    }
+
+    @Override
+    public List<OrderLogDTO> getOrderLogListByPhone(String phone) {
+        List<OrderDO> orderDOS = orderRepository.findOrderDOSByBuyerPhoneOrderByCreateTimeDesc(phone);
+        return buildOrderLogList(orderDOS);
+    }
+
+    private List<OrderLogDTO> buildOrderLogList(List<OrderDO> orderDOS) {
+        List<OrderLogDTO> orderLogDTOS = orderDOS
+                .stream()
+                .map(OrderLogConvert::convert)
+                .collect(Collectors.toList());
+        orderLogDTOS.forEach(orderLogDTO -> {
+            List<OrderDetailDO> orderDetailDOS = orderDetailRepository.findAllByOrderId(orderLogDTO.getOrderId());
+            List<OrderDetailDTO> orderDetailDTOS = orderDetailDOS
+                    .stream()
+                    .map(OrderConvert::convert)
+                    .collect(Collectors.toList());
+            orderLogDTO.setOrderDetailDTOList(orderDetailDTOS);
+            orderLogDTO.setOrderDescribe(orderDetailDOS
+                    .stream()
+                    .map(OrderDetailDO::getProductName)
+                    .collect(Collectors.joining(", ")));
+        });
+        return orderLogDTOS;
     }
 
     private void buildOrderDetail(String orderId, OrderRequest orderRequest) {
@@ -96,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
             throw new BaseException(ExceptionEnums.MEMBER_NOT_EXIT);
         }
         OrderDO orderDO = new OrderDO();
-        String orderId = UUID.randomUUID().toString().replace("-", "");
+        String orderId = String.valueOf(orderRepository.count() + 10001);
         orderDO.setOrderId(orderId);
         orderDO.setMemberId(memberDO.getMemberId());
         orderDO.setBuyerName(memberDO.getNickname());

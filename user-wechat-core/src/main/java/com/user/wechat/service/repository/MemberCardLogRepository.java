@@ -13,4 +13,6 @@ public interface MemberCardLogRepository extends JpaRepository<MemberCardLogDO, 
 
     List<MemberCardLogDO> findAllByOrderByCreateTimeDesc();
 
+    List<MemberCardLogDO> findAllByMemberIdOrderByCreateTime(String memberId);
+
 }

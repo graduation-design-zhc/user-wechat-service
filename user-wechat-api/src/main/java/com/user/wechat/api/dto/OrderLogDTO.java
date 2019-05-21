@@ -14,9 +14,10 @@ public class OrderLogDTO implements Serializable {
 
     private static final long serialVersionUID = -6818449577670868567L;
     private String nickname;
+    private String orderId;
     private List<OrderDetailDTO> orderDetailDTOList;
+    private String orderDescribe;
     private String buyerPhone;
-    private String buyerOpenId;
     private Integer payType;
     private String orderPrice;
     private String orderIntegral;
